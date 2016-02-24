@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>4.3 marvel/ajax</title>
+    <link rel="stylesheet" href="css/app.css">
+  </head>
+  <body>
+
+    <div class="container">
+      <ul class="characters"></ul>
+    </div>
+
+    <script id="character-template" type="text/x-handlebars-template">
+      <li class="character">
+        <img src="{{thumbnail.path}}.{{thumbnail.extension}}" alt="{{name}}">
+        <button class="js-display-comics">{{name}}</button>
+      </li>
+    </script>
+
+    <script src="js/bundle.js"></script>
+  </body>
+</html>
