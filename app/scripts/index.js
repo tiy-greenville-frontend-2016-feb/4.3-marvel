@@ -1,14 +1,14 @@
 var $ = require('jquery');
 var handlebars = require('handlebars');
 
-var url = 'http://gateway.marvel.com/v1/public/characters?ts=1&hash=21bd2e1b96821f4b508e0dd04ba254bd&apikey=809f574f31a7e23a17adc1f6a3631a58';
-var results = $.ajax(url).then(start);
+var apiKey = 'ts=1&hash=21bd2e1b96821f4b508e0dd04ba254bd&apikey=809f574f31a7e23a17adc1f6a3631a58';
+var url = 'http://gateway.marvel.com/v1/public/characters?' + apiKey;
+$.ajax(url).then(start);
 
 function start(data){
   console.log(data);
-
   displayCharacters(data);
-  //other stuff
+  //other stuff with data
 }
 
 function displayCharacters(data){
@@ -22,8 +22,25 @@ function displayCharacter(character){
   var $characterHtml = $(template(character));
 
   $characterHtml.find('.js-display-comics').on('click', function(){
-    console.log('button clicked');
+    fetchComics(character);
   });
 
   $('.characters').append($characterHtml);
+}
+
+function fetchComics(character){
+  var comicUrl = character.comics.collectionURI + '?' + apiKey;
+  $.ajax(comicUrl).then(displayComics);
+}
+
+function displayComics(comicResults){
+  var $modal = $('.js-modal');
+  var source = $('#comic-template').html();
+  var template = handlebars.compile(source);
+
+  // Insert comics into modal
+  $modal.find('.js-modal-content').html(template(comicResults));
+
+  // Show Modal
+  $modal.addClass('is-active');
 }
