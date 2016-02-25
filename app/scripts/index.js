@@ -6,7 +6,6 @@ var url = 'http://gateway.marvel.com/v1/public/characters?' + apiKey;
 $.ajax(url).then(start);
 
 function start(data){
-  console.log(data);
   displayCharacters(data);
   //other stuff with data
 }
@@ -38,8 +37,14 @@ function displayComics(comicResults){
   var source = $('#comic-template').html();
   var template = handlebars.compile(source);
 
+  // Configure a friendly context object
+  var context = {
+    'comics': comicResults.data.results,
+    'count': comicResults.data.count
+  }
+  
   // Insert comics into modal
-  $modal.find('.js-modal-content').html(template(comicResults));
+  $modal.find('.js-modal-content').html(template(context));
 
   // Show Modal
   $modal.addClass('is-active');

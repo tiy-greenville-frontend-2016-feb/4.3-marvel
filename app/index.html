@@ -28,8 +28,10 @@
     </script>
 
     <script id="comic-template" type="text/x-handlebars-template">
-      {{#each data.results}}
-        <div class="commic">
+      <h1>There Are {{count}} Comics</h1>
+
+      {{#each comics}}
+        <div class="comic">
           <img src="{{thumbnail.path}}.{{thumbnail.extension}}" alt="{{title}}">
         </div>
       {{/each}}
